@@ -51,7 +51,9 @@ class PuzzleGame:
             self.image = generate_image(self.description + self.config["prompt_suffix"], self.tiles_count, tile_size, self.config)
             if self.config.get("high_speed_mode", False):
                 tile_size *= 2
-                self.image = self.image.resize((tile_size * self.tiles_count, tile_size * self.tiles_count), Image.ANTIALIAS)
+                self.image = self.image.resize((tile_size * self.tiles_count, tile_size * self.tiles_count), Image.LANCZOS)
+        else:
+            self.image = self.image.resize((tile_size * self.tiles_count, tile_size * self.tiles_count), Image.LANCZOS)
                 
         self.steps = 0
         self.selected_tile = None
