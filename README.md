@@ -6,7 +6,7 @@ This is just a simple game inspired by [this tweet](https://twitter.com/outofai/
 
 The game is built using the Stable Diffusion and ControlNet models, which are used to generate images from a description provided by the player. Each image is randomly generated but follows a chessboard pattern. The generated image is then divided into tiles along the pattern lines and shuffled to create a puzzle. The player can then solve the puzzle by rearranging the tiles to form the original image.
 
-[Demo](https://github.com/IliaLarchenko/puzzle_diffusion/assets/41329713/ca89a1d3-ea53-4177-85b6-86d6d3616a25)
+[Demo](https://github.com/IliaLarchenko/puzzle_diffusion/assets/41329713/70ad96fa-9019-46a7-b3de-2ffb86317cd2)
 
 ## Installation
 
