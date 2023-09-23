@@ -1,0 +1,10 @@
+{
+    "sd_model": "runwayml/stable-diffusion-v1-5",
+    "cn_model": "runwayml/monster-labs/control_v1p_sd15_qrcode_monster",
+    "device": "mps",
+    "prompt_suffix": ", realistic, high level of details, 8K",
+    "negative_prompt": "ugly, extra limbs, disfigured, deformed, low contrast, underexposed, overexposed, bad art, beginner, amateur, distorted face, blurry, draft, grainy",
+    "high_speed_mode": true,
+    "use_saved_image": true,
+    "saved_image_path": "test.png"
+}
