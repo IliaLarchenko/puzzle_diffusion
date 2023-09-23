@@ -1,12 +1,15 @@
+import json
+import os
 import tkinter as tk
 from tkinter import simpledialog, messagebox
-from PIL import ImageTk
+from PIL import Image, ImageTk
 import random
 from image import generate_image
 
 class PuzzleGame:
-    def __init__(self, root):
+    def __init__(self, root, config):
         self.root = root
+        self.config = config
         self.root.title("Puzzle Game")
         self.root.resizable(False, False)
         self.canvas = tk.Canvas(root)
@@ -19,22 +22,41 @@ class PuzzleGame:
         self.start_game()
 
     def start_game(self):
-        if not self.description or not self.tiles_count:
+        if self.config.get("use_saved_image", False):
+            if os.path.exists(self.config["saved_image_path"]):
+                self.image = Image.open(self.config["saved_image_path"])
+            else:
+                messagebox.showerror("Error", "Saved image not found!")
+                self.root.destroy()
+                return
+        else:
             self.description = simpledialog.askstring("Input", "Describe the image:")
             if self.description is None:
                 self.root.destroy()
                 return
+        
+        # Ensure tiles_count is defined before being used.
+        if self.tiles_count is None:
             self.tiles_count = simpledialog.askinteger("Input", "Enter number of tiles (width/height, 2-10):", minvalue=2, maxvalue=10)
             if self.tiles_count is None:
                 self.root.destroy()
                 return
-            self.tile_size = 512 // max(self.tiles_count, 2)
-            self.image = generate_image(self.description, self.tiles_count, self.tile_size)
-
+        
+        self.tile_size = 512 // max(self.tiles_count, 2)
+        tile_size = self.tile_size
+        
+        if not self.config.get("use_saved_image", False):
+            if self.config.get("high_speed_mode", False):
+                tile_size //= 2
+            self.image = generate_image(self.description + self.config["prompt_suffix"], self.tiles_count, tile_size, self.config)
+            if self.config.get("high_speed_mode", False):
+                tile_size *= 2
+                self.image = self.image.resize((tile_size * self.tiles_count, tile_size * self.tiles_count), Image.ANTIALIAS)
+                
         self.steps = 0
         self.selected_tile = None
         self.shuffle_tiles()
-        self.root.geometry(f"{self.tile_size * self.tiles_count}x{self.tile_size * self.tiles_count}")
+        self.root.geometry(f"{tile_size * self.tiles_count}x{tile_size * self.tiles_count}")
         self.draw_puzzle()
 
     def shuffle_tiles(self):
@@ -104,5 +126,9 @@ class PuzzleGame:
 
 if __name__ == "__main__":
     root = tk.Tk()
-    game = PuzzleGame(root)
+
+    with open("config.json", "r") as file:
+        config = json.load(file)
+
+    game = PuzzleGame(root, config)
     game.run()
