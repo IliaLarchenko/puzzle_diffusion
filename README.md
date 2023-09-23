@@ -1,10 +1,12 @@
-# Puzzle Diffusion - Genearative Image Puzzle Game
+# Puzzle Diffusion - Generative Image Puzzle Game
 
 ## Description
 
 This is just a simple game inspired by [this tweet](https://twitter.com/outofai/status/1703175389676179947). All kudos for the idea go to the author of the tweet and many people who have recently shared their ControlNet image experiments.
 
 The game is built using the Stable Diffusion and ControlNet models, which are used to generate images from a description provided by the player. Each image is randomly generated but follows a chessboard pattern. The generated image is then divided into tiles along the pattern lines and shuffled to create a puzzle. The player can then solve the puzzle by rearranging the tiles to form the original image.
+
+[Demo](https://github.com/IliaLarchenko/puzzle_diffusion/assets/41329713/ca89a1d3-ea53-4177-85b6-86d6d3616a25)
 
 ## Installation
 
